@@ -11,7 +11,6 @@ export default class Upload extends React.Component{
      this.state ={
        file:null,
        plate:'',
-       imageShow: null,
        image: null
      }
      this.onFormSubmit = this.onFormSubmit.bind(this)
@@ -22,16 +21,12 @@ export default class Upload extends React.Component{
    onFormSubmit(e){
        e.preventDefault() // Stop form submit
        this.fileUpload(this.state.file).then((response)=>{
-
          console.log(response.data);
          this.setState({plate:response.data})
-         this.setState({image:this.state.imageShow})
-
        })
     }
    onChange(e) {
        this.setState({file:e.target.files[0]})
-       this.setState({imageShow: URL.createObjectURL(e.target.files[0])})
        this.setState({image:URL.createObjectURL(e.target.files[0])})
    }
   fileUpload(file){

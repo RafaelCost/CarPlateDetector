@@ -6,7 +6,7 @@ class Menu extends Component{
 
   render(){
     return(
-    <div class="row">
+    <div className="row">
       <h3 className="masthead-brand">RECONHECEDOR DE PLACAS</h3>
 
     </div>

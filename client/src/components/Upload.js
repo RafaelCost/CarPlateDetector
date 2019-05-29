@@ -33,6 +33,7 @@ export default class Upload extends React.Component{
        const url = 'http://localhost:5000/uploader';
        const formData = new FormData();
        formData.append('file',file)
+       console.log(formData)
        const config = {
            headers: {
                'content-type': 'multipart/form-data'
@@ -45,14 +46,14 @@ export default class Upload extends React.Component{
 
   render(){
     return(
-      <div class="row  h-100 container-fluid">
+      <div className="row  h-100 container-fluid">
           <div className=" col-lg-6  text-center position-static border rounded shadow-sm p-3">
               <h1 className="cover-heading">Enviar Imagem</h1>
-              <p className="lead">É necessário enviar a foto da placa para que nossos algoritmos façam o reconhecimento dos números. </p>
+              <p className="lead">É necessário enviar uma foto para que nossos algoritmos façam o reconhecimento da placa. </p>
               <form className="md-form" onSubmit={this.onFormSubmit}>
                   <input className="file-path-wrapper" type = "file" name = "image" onChange={this.onChange}/>
                   <p className="lead p-3">
-                  <button class="btn btn-lg btn-secondary" type="submit">ENVIAR</button>
+                  <button className="btn btn-lg btn-secondary" type="submit">ENVIAR</button>
                   </p>
               </form>
           </div>

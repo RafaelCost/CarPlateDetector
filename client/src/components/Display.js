@@ -1,12 +1,15 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
+import axios, {post,get} from 'axios';
 
 
-class Display extends Component{
+export default class Display extends React.Component{
     constructor(props) {
        super(props);
        this.state ={
-           accepted_predict:false
+           accepted_predict:false,
+           file:null,
+           plate: ''
        }
        this.onFormSubmit = this.onFormSubmit.bind(this)
        this.onChange = this.onChange.bind(this)
@@ -15,30 +18,31 @@ class Display extends Component{
 
      onFormSubmit(e){
          e.preventDefault() // Stop form submit
-         this.fileUpload(this.state.file).then((response)=>{
+         this.fileUpload(this.state.accepted_predict).then((response)=>{
            console.log(response.data);
-
+           this.setState({plate:response.data})
          })
       }
      onChange(e) {
-         this.setState({file:e.target.files[0]})
-         this.setState({imageShow: URL.createObjectURL(e.target.files[0])})
-         this.setState({image:URL.createObjectURL(e.target.files[0])})
-     }
-    fileUpload(file){
-         const url = 'http://localhost:5000/savePlate';
-         const formData = new FormData();
-         formData.append('image',this.props.file)
-         formData.append('plate',this.props.plate)
-         formData.append('accepted_predict',this.props.aprovate)
+         if(e.currentTarget.value == 'SIM'){
+            this.setState({accepted_predict:true})
+        }else{
+            this.setState({accepted_predict:false})
+        }
+         console.log(e.currentTarget.value)
 
+
+     }
+    fileUpload(acc){
+         const url = 'http://localhost:5000/savePlate';
          const config = {
              headers: {
                  'content-type': 'multipart/form-data'
              }
          }
-         return  post(url, formData,config)
+         return  post(url, {'value': acc})
      }
+
 
      render(){
         return(
@@ -52,26 +56,22 @@ class Display extends Component{
 
             {this.props.plate &&
 
+                <div className="row d-flex justify-content-center mt-4">
+                    <div className = "row container-fluid text-center" >
+                        <h5>A foto acima corresponde a placa: </h5>
+                        <h5> {this.props.plate}</h5>
+                    </div>
 
-                <div className = "row">
-                <div className = "col">
-                <p className = 'h4 p-2'>Placa: {this.props.plate}</p>
-                </div>
-                <div className = "col">
-                <button type="button" class="btn btn-success">Acertou</button>
-                <button type="button" class="btn btn-danger"> Errou </button>
-                </div>
+
+                    <form className="md-form" onSubmit={this.onFormSubmit}>
+                            <label><input className= "radio" type="radio" name="optradio" value='SIM' onChange={this.onChange}/>SIM</label>
+                            <label><input className= "radio ml-3" type="radio" name="optradio" value='NAO' onChange={this.onChange}/>NÃO</label>
+                        <button className="btn btn-secondary ml-3" type="submit">Enviar Resposta</button>
+                    </form>
                 </div>
             }
-
-
-
-
-
 
           </div>
       );
     }
 }
-
-export default Display

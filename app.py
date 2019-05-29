@@ -36,6 +36,7 @@ def uploader():
          plateNumber = p
          imgLocal = os.path.join(app.config['UPLOAD_FOLDER'],f.filename)
          print(imgLocal)
+         print(p)
          return p
 
 @app.route('/savePlate', methods = ['POST'])
@@ -45,6 +46,8 @@ def savePlate():
       if 'value' not in request.json:
          return "ERRO AO ENVIAR A IMAGEM"
       else:
+         global plateNumber
+         global imgLocal
          encoded_string = base64.b64encode(imread(imgLocal))
 
          new_data = {'image': encoded_string,

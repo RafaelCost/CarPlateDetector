@@ -58,7 +58,7 @@ export default class Upload extends React.Component{
               </form>
           </div>
 
-      <div className="col-6 border col-fixed p-3">
+      <div className="col-lg-6 border position-static col-fixed p-3">
         <Display image={this.state.image} plate={this.state.plate}/>
       </div>
       </div>

@@ -62,12 +62,13 @@ export default class Display extends React.Component{
                         <h5> {this.props.plate}</h5>
                     </div>
 
-
-                    <form className="md-form" onSubmit={this.onFormSubmit}>
-                            <label><input className= "radio" type="radio" name="optradio" value='SIM' onChange={this.onChange}/>SIM</label>
-                            <label><input className= "radio ml-3" type="radio" name="optradio" value='NAO' onChange={this.onChange}/>NÃO</label>
-                        <button className="btn btn-secondary ml-3" type="submit">Enviar Resposta</button>
-                    </form>
+                    <div className = "row container-fluid text-center" >
+                        <form onSubmit={this.onFormSubmit}>
+                                <label><input className= "radio" type="radio" name="optradio" value='SIM' onChange={this.onChange}/>SIM</label>
+                                <label><input className= "radio ml-3" type="radio" name="optradio" value='NAO' onChange={this.onChange}/>NÃO</label>
+                            <button className="btn btn-secondary ml-3" type="submit">Responder</button>
+                        </form>
+                    </div>
                 </div>
             }
 
